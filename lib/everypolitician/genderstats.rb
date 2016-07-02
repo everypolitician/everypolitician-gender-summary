@@ -33,8 +33,23 @@ module EveryPolitician
       @_leg ||= Everypolitician.legislature(@cname, @lname)
     end
 
+    def gender_lookup
+      @_ppl ||= Hash[popolo.persons.map { |p| [p.id, p.gender || 'unknown'] }]
+    end
+
+    def memberships
+      @_mems = popolo.memberships.map do |m|
+        {
+          person: m.person_id,
+          gender: gender_lookup(m.person_id),
+          term: m.legislative_period_id,
+          party: m.on_behalf_of_id,
+        }
+      end
+    end
+
     def gender_totals
-      Hash[popolo.persons.group_by { |p| p.gender || 'unknown' }.map { |g, ps| [g, ps.count] }]
+      Hash[ gender_lookup.values.group_by { |g| g }.map { |g, gs| [g, gs.count] } ]
     end
 
   end
