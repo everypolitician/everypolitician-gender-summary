@@ -49,14 +49,17 @@ module EveryPolitician
       end
     end
 
+    def gender_table(mems)
+      Hash[ mems.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]
+    end
+
     def gender_totals
       Hash[ gender_lookup.values.group_by { |g| g }.map { |g, gs| [g, gs.count] } ]
     end
 
     def term_totals
       Hash[ memberships.group_by { |m| m[:term] }.map do |t, ms|
-        rows = ms.uniq { |m| m[:person] }
-        [t, Hash[ rows.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]]
+        [t, gender_table( ms.uniq { |m| m[:person] })]
       end ]
     end 
 
