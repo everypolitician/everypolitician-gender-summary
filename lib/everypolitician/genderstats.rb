@@ -70,7 +70,9 @@ module EveryPolitician
 
     def party_totals
       Hash[ memberships.group_by { |m| m[:party] }.map do |t, ms|
-        [t, gender_table( ms.uniq { |m| m[:person] })]
+        [t, {
+          overall: gender_table( ms.uniq { |m| m[:person] })
+        }]
       end ]
     end 
 

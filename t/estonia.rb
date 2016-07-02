@@ -45,7 +45,7 @@ describe 'estonia' do
   end
 
   it 'should have accurate totals for IRL' do
-    partydata = subject.data[:totals][:by_party]['IRL']
+    partydata = subject.data[:totals][:by_party]['IRL'][:overall]
     partydata['male'].must_equal 31
     partydata['female'].must_equal 8
     partydata['unknown'].must_be_nil
@@ -53,7 +53,7 @@ describe 'estonia' do
   end
 
   it 'should have accurate totals for EKRE' do
-    partydata = subject.data[:totals][:by_party]['EKRE']
+    partydata = subject.data[:totals][:by_party]['EKRE'][:overall]
     partydata['male'].must_equal 7
     partydata['female'].must_be_nil
     partydata['unknown'].must_be_nil
