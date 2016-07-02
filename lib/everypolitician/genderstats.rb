@@ -23,8 +23,8 @@ module EveryPolitician
         slug: legislature.slug,
         totals: {
           overall: gender_totals,
-          by_term: term_data,
-          by_party: party_totals,
+          by_term: term_totals(memberships),
+          by_party: party_totals(memberships),
         }
       }
     end
@@ -60,16 +60,16 @@ module EveryPolitician
       gender_table( memberships.uniq { |m| m[:person] } )
     end
 
-    def term_data
-      Hash[ memberships.group_by { |m| m[:term] }.map do |t, ms|
+    def term_totals(data)
+      Hash[ data.group_by { |m| m[:term] }.map do |t, ms|
         [t, {
           overall: gender_table( ms.uniq { |m| m[:person] })
         }]
       end ]
     end 
 
-    def party_totals
-      Hash[ memberships.group_by { |m| m[:party] }.map do |t, ms|
+    def party_totals(data)
+      Hash[ data.group_by { |m| m[:party] }.map do |t, ms|
         [t, {
           overall: gender_table( ms.uniq { |m| m[:person] })
         }]
