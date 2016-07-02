@@ -29,7 +29,7 @@ describe 'estonia' do
   end
 
   it 'should have accurate totals for terms 12' do
-    termdata = subject.data[:totals][:by_term]['term/12']
+    termdata = subject.data[:totals][:by_term]['term/12'][:overall]
     termdata['male'].must_equal 110
     termdata['female'].must_equal 28
     termdata['unknown'].must_equal 1
@@ -37,7 +37,7 @@ describe 'estonia' do
   end
 
   it 'should have accurate totals for terms 13' do
-    termdata = subject.data[:totals][:by_term]['term/13']
+    termdata = subject.data[:totals][:by_term]['term/13'][:overall]
     termdata['male'].must_equal 98
     termdata['female'].must_equal 28
     termdata['unknown'].must_equal 1
