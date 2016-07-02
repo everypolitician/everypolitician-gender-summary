@@ -41,7 +41,7 @@ module EveryPolitician
       @_mems = popolo.memberships.map do |m|
         {
           person: m.person_id,
-          gender: gender_lookup(m.person_id),
+          gender: gender_lookup[m.person_id],
           term: m.legislative_period_id,
           party: m.on_behalf_of_id,
         }
