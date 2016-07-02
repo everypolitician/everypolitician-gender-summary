@@ -23,6 +23,7 @@ module EveryPolitician
         slug: legislature.slug,
         totals: {
           overall: gender_totals,
+          by_term: term_totals,
         }
       }
     end
@@ -51,6 +52,13 @@ module EveryPolitician
     def gender_totals
       Hash[ gender_lookup.values.group_by { |g| g }.map { |g, gs| [g, gs.count] } ]
     end
+
+    def term_totals
+      Hash[ memberships.group_by { |m| m[:term] }.map do |t, ms|
+        rows = ms.uniq { |m| m[:person] }
+        [t, Hash[ rows.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]]
+      end ]
+    end 
 
   end
 end
