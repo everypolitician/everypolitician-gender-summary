@@ -54,7 +54,7 @@ module EveryPolitician
     end
 
     def gender_totals
-      Hash[ gender_lookup.values.group_by { |g| g }.map { |g, gs| [g, gs.count] } ]
+      gender_table( memberships.uniq { |m| m[:person] } )
     end
 
     def term_totals
