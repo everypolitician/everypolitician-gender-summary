@@ -19,4 +19,11 @@ describe 'estonia' do
   it 'should include the slug' do
     subject.data[:slug].must_equal 'Riigikogu'
   end
+
+  it 'should have accurate over-all totals' do
+    overall = subject.data[:totals][:overall]
+    overall['male'].must_equal 147
+    overall['female'].must_equal 44
+    overall['unknown'].must_equal 1
+  end
 end

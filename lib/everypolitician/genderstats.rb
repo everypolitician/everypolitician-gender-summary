@@ -21,6 +21,9 @@ module EveryPolitician
     def data
       {
         slug: legislature.slug,
+        totals: {
+          overall: gender_totals,
+        }
       }
     end
 
@@ -28,6 +31,10 @@ module EveryPolitician
 
     def legislature
       @_leg ||= Everypolitician.legislature(@cname, @lname)
+    end
+
+    def gender_totals
+      Hash[popolo.persons.group_by { |p| p.gender || 'unknown' }.map { |g, ps| [g, ps.count] }]
     end
 
   end
