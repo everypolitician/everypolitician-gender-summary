@@ -70,9 +70,10 @@ module EveryPolitician
     end 
 
     def party_totals(data)
-      Hash[ data.group_by { |m| m[:party] }.map do |t, ms|
-        [t, {
-          overall: gender_table(ms)
+      Hash[ data.group_by { |m| m[:party] }.map do |p, ms|
+        [p, {
+          overall: gender_table(ms),
+          by_term: term_slice(ms),
         }]
       end ]
     end 
@@ -80,6 +81,12 @@ module EveryPolitician
     def party_slice(data)
       Hash[ data.group_by { |m| m[:party] }.map do |p, ms|
         [p, gender_table(ms)]
+      end ]
+    end 
+
+    def term_slice(data)
+      Hash[ data.group_by { |m| m[:term] }.map do |t, ms|
+        [t, gender_table(ms)]
       end ]
     end 
 

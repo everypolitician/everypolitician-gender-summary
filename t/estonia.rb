@@ -86,4 +86,30 @@ describe 'estonia' do
     data['total'].must_equal 7
   end
 
+  it 'should have accurate term 12 data for IRL' do
+    data = subject.data[:totals][:by_party]['IRL'][:by_term]['term/12']
+    data['male'].must_equal 27
+    data['female'].must_equal 6
+    data['total'].must_equal 33
+  end
+
+  it 'should have accurate term 13 data for IRL' do
+    data = subject.data[:totals][:by_party]['IRL'][:by_term]['term/13']
+    data['male'].must_equal 17
+    data['female'].must_equal 2
+    data['total'].must_equal 19
+  end
+
+  it 'should have accurate term 12 data for EKRE' do
+    data = subject.data[:totals][:by_party]['EKRE'][:by_term]['term/12']
+    data.must_be_nil
+  end
+
+  it 'should have accurate term 13 for EKRE' do
+    data = subject.data[:totals][:by_party]['EKRE'][:by_term]['term/13']
+    data['male'].must_equal 7
+    data['female'].must_be_nil
+    data['total'].must_equal 7
+  end
+
 end
