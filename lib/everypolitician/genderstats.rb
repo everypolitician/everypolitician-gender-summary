@@ -50,7 +50,9 @@ module EveryPolitician
     end
 
     def gender_table(mems)
-      Hash[ mems.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]
+      data = Hash[ mems.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]
+      data['total'] = data.values.inject(&:+)
+      data
     end
 
     def gender_totals

@@ -25,6 +25,7 @@ describe 'estonia' do
     overall['male'].must_equal 147
     overall['female'].must_equal 44
     overall['unknown'].must_equal 1
+    overall['total'].must_equal 192
   end
 
   it 'should have accurate totals for terms 12' do
@@ -32,6 +33,7 @@ describe 'estonia' do
     termdata['male'].must_equal 110
     termdata['female'].must_equal 28
     termdata['unknown'].must_equal 1
+    termdata['total'].must_equal 139
   end
 
   it 'should have accurate totals for terms 13' do
@@ -39,6 +41,7 @@ describe 'estonia' do
     termdata['male'].must_equal 98
     termdata['female'].must_equal 28
     termdata['unknown'].must_equal 1
+    termdata['total'].must_equal 127
   end
 
 end
