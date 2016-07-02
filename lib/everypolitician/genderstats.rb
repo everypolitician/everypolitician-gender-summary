@@ -39,6 +39,14 @@ module EveryPolitician
       @_ppl ||= Hash[popolo.persons.map { |p| [p.id, p.gender || 'unknown'] }]
     end
 
+    def term_names
+      @_tnames ||= Hash[popolo.events.where(classification: "legislative period").map { |e| [e.id, e.name] }]
+    end
+
+    def party_names
+      @_pnames ||= Hash[popolo.organizations.where(classification: "party").map { |e| [e.id, e.name] }]
+    end
+
     def memberships
       @_mems = popolo.memberships.map do |m|
         {
@@ -63,7 +71,7 @@ module EveryPolitician
     def term_totals(data)
       Hash[ data.group_by { |m| m[:term] }.map do |t, ms|
         [t, {
-          overall: gender_table(ms),
+          overall: gender_table(ms).merge(name: term_names[t]),
           by_party: party_slice(ms),
         }]
       end ]
@@ -72,7 +80,7 @@ module EveryPolitician
     def party_totals(data)
       Hash[ data.group_by { |m| m[:party] }.map do |p, ms|
         [p, {
-          overall: gender_table(ms),
+          overall: gender_table(ms).merge(name: party_names[p]),
           by_term: term_slice(ms),
         }]
       end ]
@@ -80,13 +88,13 @@ module EveryPolitician
 
     def party_slice(data)
       Hash[ data.group_by { |m| m[:party] }.map do |p, ms|
-        [p, gender_table(ms)]
+        [p, gender_table(ms).merge(name: party_names[p])]
       end ]
     end 
 
     def term_slice(data)
       Hash[ data.group_by { |m| m[:term] }.map do |t, ms|
-        [t, gender_table(ms)]
+        [t, gender_table(ms).merge(name: term_names[t])]
       end ]
     end 
 
