@@ -51,19 +51,19 @@ module EveryPolitician
     end
 
     def gender_table(mems)
-      data = Hash[ mems.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]
+      data = Hash[ mems.uniq { |m| m[:person] }.group_by { |r| r[:gender] }.map { |g, gs| [g, gs.count] } ]
       data['total'] = data.values.inject(&:+)
       data
     end
 
     def gender_totals
-      gender_table( memberships.uniq { |m| m[:person] } )
+      gender_table( memberships )
     end
 
     def term_totals(data)
       Hash[ data.group_by { |m| m[:term] }.map do |t, ms|
         [t, {
-          overall: gender_table( ms.uniq { |m| m[:person] })
+          overall: gender_table(ms),
         }]
       end ]
     end 
@@ -71,7 +71,7 @@ module EveryPolitician
     def party_totals(data)
       Hash[ data.group_by { |m| m[:party] }.map do |t, ms|
         [t, {
-          overall: gender_table( ms.uniq { |m| m[:person] })
+          overall: gender_table(ms)
         }]
       end ]
     end 
