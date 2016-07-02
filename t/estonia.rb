@@ -13,6 +13,10 @@ describe 'estonia' do
   end
 
   it 'should return data as a hash' do
-    subject.data.must_equal Hash.new
+    subject.data.class.must_equal Hash
+  end
+
+  it 'should include the slug' do
+    subject.data[:slug].must_equal 'Riigikogu'
   end
 end

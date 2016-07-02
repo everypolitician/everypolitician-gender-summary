@@ -19,7 +19,9 @@ module EveryPolitician
     end
 
     def data
-      {}
+      {
+        slug: legislature.slug,
+      }
     end
 
     private
